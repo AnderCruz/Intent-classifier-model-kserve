@@ -30,19 +30,19 @@ helm install kserve oci://ghcr.io/kserve/charts/kserve \
 ### Deploy the Intent Classifier model
 
 ```
-kubectl create namespace intent
+kubectl create namespace ml
 
-cat <<EOF | kubectl apply -n intent -f -
+cat <<EOF | kubectl apply -n ml -f -
 apiVersion: serving.kserve.io/v1beta1
 kind: InferenceService
 metadata:
-  name: intent-classifier
+  name: sklearn-iris
 spec:
   predictor:
     model:
       modelFormat:
         name: sklearn
-      storageUri: "<downloadable location>"
+      storageUri: "gs://kfserving-examples/models/sklearn/1.0/model"
       resources:
         requests:
           cpu: "100m"
